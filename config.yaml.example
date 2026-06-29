@@ -1,0 +1,39 @@
+# Backend: dry_run | cisco_ios | frr | bird
+backend: dry_run
+
+# Your ASN
+asn: 65001
+
+# BGP neighbor IP (for clear ip bgp ... soft out)
+neighbor: 198.51.100.1
+
+# RTBH community — CHECK WITH YOUR PROVIDER!
+# RFC7999 recommends provider-specific communities. Common values:
+#   65535:666  — "traditional" value (not a standard!)
+#   12345:666  — provider-specific community
+community: "65535:666"
+
+# Auto-detect public IP of this server
+auto_detect: true
+allow_private: false
+preferred_interface: eth0
+
+# Disable interactive confirmation (for automation)
+confirm: true
+
+# --- Cisco IOS (via SSH) ---
+cisco:
+  host: 192.168.255.1
+  username: admin
+  password: "changeme"
+  enable_password: "secret"   # optional
+  timeout: 30
+
+# --- FRRouting (local via vtysh) ---
+frr:
+  vtysh: /usr/bin/vtysh
+
+# --- BIRD (local) ---
+bird:
+  routes_file: /etc/bird/blackhole-routes.conf
+  reload_cmd: "/usr/sbin/birdc configure"

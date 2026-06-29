@@ -1,0 +1,12 @@
+[Unit]
+Description=BGP Blackhole for IP %i
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/bgp-blackhole.py --config /etc/bgp-blackhole.yaml --force blackhole %i
+ExecStop=/usr/local/bin/bgp-blackhole.py --config /etc/bgp-blackhole.yaml --force unblackhole %i
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
